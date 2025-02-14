@@ -32,9 +32,9 @@ const MyInput = (props: InputProps) => {
             onClick={handleToggle}
           >
             {!isShow ? (
-              <EyeIcon className="text-xl" />
+              <EyeIcon className="size-6" />
             ) : (
-              <EyeSlashIcon className="text-xl" />
+              <EyeSlashIcon className="size-6" />
             )}
           </Button>
         </RenderIf>

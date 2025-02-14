@@ -1,6 +1,16 @@
 import { AuthProvider } from '@/contexts/auth';
 import { HeroUIProvider } from '@heroui/system';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000,
+      retry: false,
+    },
+  },
+});
 
 export default function AppProvider({
   children,
@@ -9,9 +19,11 @@ export default function AppProvider({
 }) {
   return (
     <BrowserRouter>
-      <AuthProvider>
-        <HeroUIProvider>{children}</HeroUIProvider>
-      </AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <HeroUIProvider>{children}</HeroUIProvider>
+        </AuthProvider>
+      </QueryClientProvider>
     </BrowserRouter>
   );
 }
