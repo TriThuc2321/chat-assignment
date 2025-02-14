@@ -28,10 +28,10 @@ export default tseslint.config(
       },
     },
     plugins: {
-      react: react,
+      react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      prettier: prettier,
+      prettier,
       'jsx-a11y': jsxA11y,
       'unused-imports': unusedImports,
       import: importPlugin,
