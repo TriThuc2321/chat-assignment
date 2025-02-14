@@ -1,13 +1,42 @@
-import { Button } from "@heroui/button";
-import { HeroUIProvider } from "@heroui/system";
+import {
+  AuthHandleRoute,
+  ProtectedRoute,
+  SuspenseLoading,
+} from '@/components/shared';
+import { ChatPage, LoginPage, MessagePage } from '@/pages';
+import { useRoutes } from 'react-router-dom';
 
 function App() {
-  return (
-    <HeroUIProvider>
-      <h1 className="text-3xl font-bold underline">Hello World</h1>
-      <Button color="primary">Click me</Button>
-    </HeroUIProvider>
-  );
+  const routes = useRoutes([
+    {
+      path: '/',
+      element: (
+        <ProtectedRoute>
+          <ChatPage />
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          path: ':id',
+          element: (
+            <SuspenseLoading>
+              <MessagePage />
+            </SuspenseLoading>
+          ),
+        },
+      ],
+    },
+    {
+      path: '/login',
+      element: (
+        <AuthHandleRoute>
+          <LoginPage />
+        </AuthHandleRoute>
+      ),
+    },
+  ]);
+
+  return <SuspenseLoading>{routes}</SuspenseLoading>;
 }
 
 export default App;
