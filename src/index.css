@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  --color-primary: #03bd9d;
+  --color-secondary: #23ab85;
+  --color-accent: #f7fffd;
+  --color-background: #fff;
+  --color-typography: #091316;
+  --color-typography-secondary: #616161;
+  --color-danger: #b90404;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-typography);
+}
