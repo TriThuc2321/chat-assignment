@@ -1,3 +1,4 @@
+import { AuthProvider } from '@/contexts/auth';
 import { HeroUIProvider } from '@heroui/system';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -8,7 +9,9 @@ export default function AppProvider({
 }) {
   return (
     <BrowserRouter>
-      <HeroUIProvider>{children}</HeroUIProvider>
+      <AuthProvider>
+        <HeroUIProvider>{children}</HeroUIProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
