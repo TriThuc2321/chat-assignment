@@ -17,20 +17,15 @@ export const AuthProvider = ({ children }: ProviderProps) => {
     LOCAL_STORAGE_KEY.USER,
   );
 
-  const onLogin = useCallback((user: User) => {
+  const onUserChange = useCallback((user: User | null) => {
     setUser(user);
-  }, []);
-
-  const onLogout = useCallback(() => {
-    setUser(null);
   }, []);
 
   return (
     <AuthContext.Provider
       value={{
         user,
-        onLogin,
-        onLogout,
+        onUserChange,
       }}
     >
       {children}

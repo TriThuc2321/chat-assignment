@@ -1,5 +1,5 @@
-export type User = Partial<{
+export type User = {
   id: string;
   username: string;
   online: boolean;
-}>;
+};

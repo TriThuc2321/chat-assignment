@@ -2,6 +2,15 @@ import { User } from './user';
 
 export type AuthContextTypeProps = {
   user?: User | null;
-  onLogin: (user: User) => void;
-  onLogout: () => void;
+  onUserChange: (user: User | null) => void;
+};
+
+export type LoginPayload = {
+  username: string;
+};
+
+export type LoginResponse = User;
+
+export type LogoutPayload = {
+  userId?: string;
 };

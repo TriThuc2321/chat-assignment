@@ -1,23 +1,24 @@
 import logo from '@/assets/images/logo.png';
 import { HandleAuthLayout } from '@/components/shared/layouts';
-import { useAuth, useThrottle } from '@/hooks';
+import { useAuth } from '@/hooks';
+import { useLogin } from '@/hooks/apis/auth';
 import { useLoginForm } from '@/hooks/forms';
 import { Button, Input } from '@/libs/heroUI';
 import { LoginFormData } from '@/schemas/loginSchema';
-import { ReactNode, useCallback } from 'react';
+import { ReactNode } from 'react';
 
 export default function Login() {
   const { register, handleSubmit, errors } = useLoginForm();
+  const { onUserChange } = useAuth();
+  const { mutateAsync: login, isPending } = useLogin();
 
-  const { onLogin } = useAuth();
-
-  const onSubmit = useCallback(
-    async ({ username }: LoginFormData) => {
-      onLogin({ username, online: true, id: '1' });
-    },
-    [onLogin],
-  );
-  const debounceOnSubmit = useThrottle(onSubmit, 1500);
+  const onSubmit = async (payload: LoginFormData) => {
+    login(payload, {
+      onSuccess: user => {
+        onUserChange(user);
+      },
+    });
+  };
 
   return (
     <HandleAuthLayout>
@@ -34,8 +35,7 @@ export default function Login() {
             Welcome to Chat App
           </h1>
           <p className="text-sm text-typography">
-            Join our group in few minutes! Sign up with your details to get
-            started
+            Stylishly Connect, Effortlessly Communicate
           </p>
         </div>
 
@@ -75,7 +75,8 @@ export default function Login() {
 
           <Button
             className="!mt-0 flex w-full items-center justify-center gap-2 bg-primary py-2 text-lg font-medium normal-case text-white"
-            onClick={handleSubmit(debounceOnSubmit)}
+            isLoading={isPending}
+            onClick={handleSubmit(onSubmit)}
           >
             Login
           </Button>

@@ -1,4 +1,5 @@
 import ENV from '@/configs/env';
+import { ErrorResponse } from '@/types/common';
 import type { AxiosError } from 'axios';
 import axios from 'axios';
 
@@ -9,7 +10,8 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.response.use(
   response => response.data,
-  async (error: AxiosError) => Promise.reject(error.response?.data),
+  async (error: AxiosError) =>
+    Promise.reject(error.response?.data as ErrorResponse),
 );
 
 export default axiosInstance;

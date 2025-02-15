@@ -3,8 +3,8 @@ import { useCallback, useEffect, useState } from 'react';
 type Callback<T extends unknown[]> = (...args: T) => void;
 
 const useThrottle = <T extends unknown[]>(
-  callback: Callback<T>,
-  delay: number,
+  callback?: Callback<T>,
+  delay: number = 500,
 ) => {
   const [isReady, setIsReady] = useState(true);
 
@@ -13,7 +13,7 @@ const useThrottle = <T extends unknown[]>(
       if (!isReady) return;
 
       setIsReady(false);
-      callback(...args);
+      callback?.(...args);
     },
     [callback, isReady],
   );
