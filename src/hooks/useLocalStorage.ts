@@ -1,8 +1,13 @@
 import { useEffect, useState } from 'react';
 
+type Options<T> = {
+  onInitCompleted?: (value: T) => void;
+};
+
 const useLocalStorage = <T>(
   key: string,
   initialState?: T | (() => T),
+  options: Options<T> = {},
 ): [T, React.Dispatch<React.SetStateAction<T>>] => {
   const [state, setState] = useState<T>(initialState as T);
 
@@ -10,6 +15,7 @@ const useLocalStorage = <T>(
     const item = localStorage.getItem(key);
 
     if (item) setState(parse(item));
+    options.onInitCompleted?.(state);
   }, [key]);
 
   useEffect(() => {

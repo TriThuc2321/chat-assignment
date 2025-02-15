@@ -22,6 +22,7 @@ export const SocketContext = createContext<SocketContextTypeProps>(
 export const SocketProvider = ({ children }: ProviderProps) => {
   const { user } = useAuth();
   const [isConnected, setIsConnected] = useState(socket.connected);
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [usersOnline, setUsersOnline] = useState<User[]>([]);
 
@@ -34,6 +35,12 @@ export const SocketProvider = ({ children }: ProviderProps) => {
     },
     [user],
   );
+
+  useEffect(() => {
+    if (user) {
+      socket.emit('user:login', user.username);
+    }
+  }, [user]);
 
   useEffect(() => {
     const onConnect = () => {

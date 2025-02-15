@@ -1,6 +1,7 @@
 import { User } from './user';
 
 export type AuthContextTypeProps = {
+  isLoading: boolean;
   user?: User | null;
   onUserChange: (user: User | null) => void;
 };
