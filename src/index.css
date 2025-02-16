@@ -10,7 +10,7 @@
 }
 
 html {
-  --color-primary: #03bd9d;
+  --color-primary: #0a685a;
   --color-secondary: #23ab85;
   --color-accent: #f7fffd;
   --color-background: #fff;
@@ -20,6 +20,29 @@ html {
 }
 
 body {
-  background-color: var(--color-background);
+  background-color: var(--color-accent);
   color: var(--color-typography);
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-corner {
+  display: hidden;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-secondary);
 }

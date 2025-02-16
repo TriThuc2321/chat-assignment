@@ -5,10 +5,10 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 
 const useLogout = () => {
-  const { onUserChange } = useAuth();
+  const { onUserChange, user } = useAuth();
 
   return useMutation({
-    mutationFn: authApi.logout,
+    mutationFn: () => authApi.logout({ userId: user?.id }),
     onSuccess: () => {
       toast.success('Logout successful');
       onUserChange(null);

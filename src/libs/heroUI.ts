@@ -1,4 +1,6 @@
 import { Button, Input, Textarea } from '@/components/customs';
+import { Avatar } from '@heroui/avatar';
+import { Badge } from '@heroui/badge';
 import {
   Drawer,
   DrawerBody,
@@ -21,6 +23,8 @@ import { cn } from '@heroui/theme';
 import { useDisclosure } from '@heroui/use-disclosure';
 
 export {
+  Badge,
+  Avatar,
   useDisclosure,
   Spinner,
   Textarea,

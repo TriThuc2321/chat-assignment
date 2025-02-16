@@ -20,6 +20,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@heroui/avatar": "^2.2.7",
+    "@heroui/badge": "^2.2.6",
     "@heroui/button": "^2.2.10",
     "@heroui/drawer": "^2.2.8",
     "@heroui/input": "^2.4.10",
