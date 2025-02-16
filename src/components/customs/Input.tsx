@@ -8,7 +8,7 @@ import { RenderIf } from '../shared';
 
 const MyInput = (props: InputProps) => {
   const [isShow, setIsShow] = useState(false);
-  const { type, ...rest } = props;
+  const { type, variant = 'bordered', ...rest } = props;
   const handleToggle = () => setIsShow(prev => !prev);
 
   return (
@@ -16,11 +16,12 @@ const MyInput = (props: InputProps) => {
       isClearable
       classNames={{
         base: 'w-full',
-        inputWrapper: 'border-1 border-primary text-typography',
+        inputWrapper:
+          variant === 'bordered'
+            ? 'border-1 border-primary text-typography'
+            : '',
       }}
-      labelPlacement="outside"
-      variant="bordered"
-      {...props}
+      color="primary"
       endContent={
         <RenderIf condition={type === 'password'}>
           <Button
@@ -39,7 +40,9 @@ const MyInput = (props: InputProps) => {
           </Button>
         </RenderIf>
       }
+      labelPlacement="outside"
       type={type === 'password' ? (isShow ? 'text' : 'password') : type}
+      variant={variant}
       {...rest}
     />
   );

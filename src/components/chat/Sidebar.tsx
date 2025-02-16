@@ -5,7 +5,7 @@ import { Button } from '@/libs/heroUI';
 import { User } from '@/types/user';
 import { ArrowLeftStartOnRectangleIcon } from '@heroicons/react/24/outline';
 import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { OnlineUser } from '.';
 
 const users: User[] = [
@@ -43,9 +43,11 @@ export default function Sidebar() {
   return (
     <div className="flex h-full min-w-[300px] flex-col justify-between rounded-2xl bg-primary py-4 shadow-md">
       <div className="flex h-full flex-col">
-        <Button className="mx-4 flex gap-2 py-10">
-          <img alt="logo" className="h-10 w-10" src={logo} />
-          <p className="text-xl font-medium text-white">WebChats</p>
+        <Button className="mx-4 py-10">
+          <Link className="flex items-center gap-2" to="/">
+            <img alt="logo" className="h-10 w-10" src={logo} />
+            <p className="text-xl font-medium text-white">WebChats</p>
+          </Link>
         </Button>
 
         <div className="flex max-h-[calc(100vh-300px)] flex-col gap-4 overflow-y-auto p-4">

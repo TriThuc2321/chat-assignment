@@ -19,7 +19,7 @@ export default function OnlineUser({ user, isActive, href }: OnlineUserProps) {
         'bg-secondary': isActive,
       })}
     >
-      <LinkIf to={href}>
+      <LinkIf className="w-full" to={href}>
         <div className="flex w-full items-center gap-2 px-4 py-3">
           <Badge
             classNames={{
@@ -32,7 +32,7 @@ export default function OnlineUser({ user, isActive, href }: OnlineUserProps) {
           >
             <Avatar
               classNames={{
-                name: 'text-xl',
+                name: 'text-xl font-medium text-primary',
                 base: 'bg-accent',
               }}
               name={username?.charAt(0)?.toUpperCase()}

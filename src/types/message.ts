@@ -1,7 +1,9 @@
-export type Message = {
+import { User } from './user';
+
+export type ChatMessage = {
   id: string;
-  sender: string;
-  receiver: string;
+  sender: User;
+  receiver: User;
   message: string;
   timestamp: number;
 };
