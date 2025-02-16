@@ -1,44 +1,19 @@
 import logo from '@/assets/images/logo.png';
 import { useAuth } from '@/hooks';
 import { useLogout } from '@/hooks/apis/auth';
+import { useGetUsersOnline } from '@/hooks/apis/users';
 import { Button } from '@/libs/heroUI';
-import { User } from '@/types/user';
 import { ArrowLeftStartOnRectangleIcon } from '@heroicons/react/24/outline';
-import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { OnlineUser } from '.';
 
-const users: User[] = [
-  {
-    id: '1',
-    username: 'John Doe',
-    online: true,
-  },
-  {
-    id: '2',
-    username: 'Jane Doe',
-    online: false,
-  },
-  {
-    id: '3',
-    username: 'John Smith',
-    online: true,
-  },
-  {
-    id: '4',
-    username: 'Jane Smith',
-    online: false,
-  },
-];
-
 export default function Sidebar() {
-  const { id } = useParams();
+  const { data: usersOnline } = useGetUsersOnline();
+  const { id: currentUserId } = useParams();
   const { user } = useAuth();
   const { mutate } = useLogout();
 
   const currentUser = user ? { ...user, online: false } : null;
-
-  const activeUser = useMemo(() => users.find(user => user.id === id), [id]);
 
   return (
     <div className="flex h-full min-w-[300px] flex-col justify-between rounded-2xl bg-primary py-4 shadow-md">
@@ -51,11 +26,11 @@ export default function Sidebar() {
         </Button>
 
         <div className="flex max-h-[calc(100vh-300px)] flex-col gap-4 overflow-y-auto p-4">
-          {users.map(user => (
+          {usersOnline?.map(user => (
             <OnlineUser
               key={user.id}
               href={`/${user.id}`}
-              isActive={activeUser?.id === user.id}
+              isActive={currentUserId === user.id}
               user={user}
             />
           ))}

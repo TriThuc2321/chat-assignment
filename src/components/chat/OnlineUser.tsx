@@ -15,7 +15,7 @@ export default function OnlineUser({ user, isActive, href }: OnlineUserProps) {
 
   return (
     <Button
-      className={classNames('h-auto justify-start p-0', {
+      className={classNames('h-auto min-h-16 justify-start p-0', {
         'bg-secondary': isActive,
       })}
     >

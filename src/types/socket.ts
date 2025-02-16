@@ -1,11 +1,9 @@
-import { Message } from './message';
-import { User } from './user';
+import { ChatMessage } from './message';
 
 export type SocketContextTypeProps = {
   isConnected: boolean;
-  messages: Message[];
+  messages: ChatMessage[];
   sendMessage: (message: string) => void;
-  usersOnline: User[];
 };
 
 export type DataSocket<T> = {

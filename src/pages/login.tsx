@@ -22,7 +22,7 @@ export default function Login() {
 
   return (
     <HandleAuthLayout>
-      <div className="flex flex-col gap-4 bg-white">
+      <div className="flex flex-col gap-4 bg-accent">
         <img
           alt="Logo"
           className="mx-auto bg-primary"

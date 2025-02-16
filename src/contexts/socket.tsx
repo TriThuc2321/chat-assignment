@@ -1,8 +1,10 @@
 import { socket } from '@/configs/socket';
+import { QUERY_KEY } from '@/constants/common';
 import { useAuth } from '@/hooks';
-import { Message } from '@/types/message';
+import { ChatMessage } from '@/types/message';
 import { DataSocket, SocketContextTypeProps } from '@/types/socket';
 import { User } from '@/types/user';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   createContext,
   ReactNode,
@@ -20,11 +22,11 @@ export const SocketContext = createContext<SocketContextTypeProps>(
 );
 
 export const SocketProvider = ({ children }: ProviderProps) => {
+  const queryClient = useQueryClient();
   const { user } = useAuth();
   const [isConnected, setIsConnected] = useState(socket.connected);
 
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [usersOnline, setUsersOnline] = useState<User[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
 
   const sendMessage = useCallback(
     (message: string) => {
@@ -37,10 +39,10 @@ export const SocketProvider = ({ children }: ProviderProps) => {
   );
 
   useEffect(() => {
-    if (user) {
+    if (user && isConnected) {
       socket.emit('user:login', user.username);
     }
-  }, [user]);
+  }, [user, isConnected]);
 
   useEffect(() => {
     const onConnect = () => {
@@ -53,12 +55,14 @@ export const SocketProvider = ({ children }: ProviderProps) => {
       setIsConnected(false);
     };
 
-    const onReceiveMessage = (value: DataSocket<Message>) => {
+    const onReceiveMessage = (value: DataSocket<ChatMessage>) => {
       setMessages(previous => [...previous, value.data]);
     };
 
-    const onUsersOnline = (value: DataSocket<User>) => {
-      setUsersOnline(previous => [...previous, value.data]);
+    const onUsersOnline = (value: DataSocket<User[]>) => {
+      queryClient.setQueryData([QUERY_KEY.USERS_ONLINE], () =>
+        value.data.filter(onlUser => onlUser.id !== user?.id),
+      );
     };
 
     socket.on('connect', onConnect);
@@ -80,7 +84,6 @@ export const SocketProvider = ({ children }: ProviderProps) => {
         isConnected,
         messages,
         sendMessage,
-        usersOnline,
       }}
     >
       {children}
