@@ -43,7 +43,7 @@ export default function MessageItem({
           className={classNames(
             'flex flex-col rounded-lg bg-secondary px-4 py-2',
             {
-              'bg-gray-100': !isSender,
+              'bg-gray-200': !isSender,
             },
           )}
         >
